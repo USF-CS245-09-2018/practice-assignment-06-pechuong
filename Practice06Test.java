@@ -32,15 +32,41 @@ public class Practice06Test {
 		}
 
 		while (! stack.empty() && ! queue.empty()) {
-			if (! stack.pop().equals(queue.dequeue())) {
+			String stackItem = (String) stack.pop();
+			while ( (stackItem != null) && (
+				(stackItem.charAt(0) < 65 || stackItem.charAt(0) > 90) &&
+				(stackItem.charAt(0) < 97 || stackItem.charAt(0) > 122) )) {
+				stackItem = (String) stack.pop();
+			}
+			if (stackItem == null) {
+				System.out.println("Hi");
+				stackItem = " ";
+			}
+			String queueItem = (String) queue.dequeue();
+			while ( (queueItem != null) && (
+				(queueItem.charAt(0) < 65 || queueItem.charAt(0) > 90) &&
+				(queueItem.charAt(0) < 97 || queueItem.charAt(0) > 122) )) {
+				queueItem = (String) queue.dequeue();
+			}
+			if (queueItem == null) {
+				queueItem = " ";
+			}
+
+			//System.out.print(" " + stackItem);
+			//System.out.print(" " + queueItem);
+			
+			if (! stackItem.toLowerCase().equals(queueItem.toLowerCase())) {
+				System.out.println("Stack Item: " + stackItem);
+				System.out.println("Queue Item: " + queueItem);
 				return false;
 			}
+			
 		}
 		
 		// At this point, the stack AND the queue should be empty. But check in case...
-		if (!stack.empty() || ! queue.empty())
+		if (!stack.empty() || ! queue.empty()) {
 			return false;
-		
+		}
 		return true;
 	}
 	
