@@ -19,12 +19,13 @@ public class ArrayQueue implements Queue {
 	}
 
 	public void enqueue(Object item) {
-		if (((this.tail + 1) % this.arr.length) != this.head) {
-			this.arr[(this.tail) % this.arr.length] = item;
+		if (((this.tail + 1) % this.arr.length - 1) != this.head) {
+			this.arr[this.tail % this.arr.length] = item;
 			this.tail = (this.tail + 1) % this.arr.length;
 
 		} else {
 			growArray();
+			enqueue(item);
 		}
 	}
 
