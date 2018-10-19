@@ -12,17 +12,21 @@ public class ArrayQueue implements Queue {
 	}
 	
 	public Object dequeue() {
-		if (!isEmpty() || empty()) {
-			return this.arr[head++];
+		if (!isEmpty() || !empty()) {
+			Object temp = this.arr[head];
+			//System.out.println("Head: " + this.head);
+			//System.out.println("Tail: " + this.tail);
+			//System.out.println("Arr length: " + this.arr.length);
+			this.head = (this.head + 1) % this.arr.length;
+			return temp;
 		} 
 		return null;
 	}
 
 	public void enqueue(Object item) {
-		if (((this.tail + 1) % this.arr.length - 1) != this.head) {
+		if (((this.tail + 1) % this.arr.length != this.head)) {
 			this.arr[this.tail % this.arr.length] = item;
 			this.tail = (this.tail + 1) % this.arr.length;
-
 		} else {
 			growArray();
 			enqueue(item);
@@ -38,8 +42,9 @@ public class ArrayQueue implements Queue {
 
 	public void growArray() {
 		Object[] newArr = new Object[this.arr.length * 2];
-		for (int i = this.head; i < this.arr.length + this.head; i++) {
-			newArr[this.tail++] = arr[i % arr.length];
+		this.tail = 0;
+		for (int i = this.head; i < this.arr.length + this.head - 1; i++) {
+			newArr[this.tail++] = arr[i % this.arr.length];
 		}
 		this.head = 0;
 		this.arr = newArr;
@@ -51,5 +56,4 @@ public class ArrayQueue implements Queue {
 		}
 		return false;
 	}
-
 }
