@@ -12,12 +12,20 @@ public class ArrayQueue implements Queue {
 	}
 	
 	public Object dequeue() {
-		if (!isEmpty() || !empty()) {
-			Object temp = this.arr[head];
-			//System.out.println("Head: " + this.head);
-			//System.out.println("Tail: " + this.tail);
+		/*
+		System.out.println("Empty Head: " + this.head);
+		System.out.println("Empty Tail: " + this.tail);
+		*/
+		if (!empty()) {
+			Object temp = this.arr[this.head];
 			//System.out.println("Arr length: " + this.arr.length);
 			this.head = (this.head + 1) % this.arr.length;
+			/*
+			System.out.println("Dequeue Head: " + this.head);
+			System.out.println("Dequeue Tail: " + this.tail);
+			
+			System.out.println("Head == Tail? " + (this.head == this.tail));
+			*/
 			return temp;
 		} 
 		return null;
@@ -35,6 +43,8 @@ public class ArrayQueue implements Queue {
 
 	public boolean empty() {
 		if (this.head == this.tail) {
+			//System.out.println("EmptyHead: " + this.head);
+			//System.out.println("Empty Tail: " + this.tail);
 			return true;	
 		}
 		return false;
@@ -50,10 +60,4 @@ public class ArrayQueue implements Queue {
 		this.arr = newArr;
 	}
 
-	public boolean isEmpty() {
-		if (this.head == this.tail) {
-			return true;	
-		}
-		return false;
-	}
 }

@@ -10,8 +10,8 @@ public class ArrayStack implements Stack {
 
 	public void push(Object item) {
 		if (this.tail + 1 < this.arr.length) {
-			this.arr[tail++] = item;	
-		} else {
+			this.arr[this.tail++] = item;	
+		} else {	
 			growArray();
 			push(item);
 		}	
@@ -19,7 +19,7 @@ public class ArrayStack implements Stack {
 
 	public Object pop() {
 		if (!isEmpty()) {
-			return this.arr[--tail];
+			return this.arr[--this.tail];
 		}
 		return null;	
 	}

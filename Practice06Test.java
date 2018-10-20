@@ -26,45 +26,22 @@ public class Practice06Test {
 	
 	public boolean isPalindrome(String item) {
 		clearData();
+		item = item.replaceAll("\\W*", "").toLowerCase();
 		for (int i = 0; i < item.length(); i++) {
 			stack.push(item.substring(i, i+1));
 			queue.enqueue(item.substring(i, i+1));
 		}
-
+	
 		while (! stack.empty() && ! queue.empty()) {
-			String stackItem = (String) stack.pop();
-			while ( (stackItem != null) && (
-				(stackItem.charAt(0) < 65 || stackItem.charAt(0) > 90) &&
-				(stackItem.charAt(0) < 97 || stackItem.charAt(0) > 122) )) {
-				stackItem = (String) stack.pop();
-			}
-			if (stackItem == null) {
-				System.out.println("Hi");
-				stackItem = " ";
-			}
-			String queueItem = (String) queue.dequeue();
-			while ( (queueItem != null) && (
-				(queueItem.charAt(0) < 65 || queueItem.charAt(0) > 90) &&
-				(queueItem.charAt(0) < 97 || queueItem.charAt(0) > 122) )) {
-				queueItem = (String) queue.dequeue();
-			}
-			if (queueItem == null) {
-				queueItem = " ";
-			}
-
-			//System.out.print(" " + stackItem);
-			//System.out.print(" " + queueItem);
-			
-			if (! stackItem.toLowerCase().equals(queueItem.toLowerCase())) {
-				System.out.println("Stack Item: " + stackItem);
-				System.out.println("Queue Item: " + queueItem);
+			if (! stack.pop().equals(queue.dequeue())) {
 				return false;
 			}
-			
 		}
 		
 		// At this point, the stack AND the queue should be empty. But check in case...
 		if (!stack.empty() || ! queue.empty()) {
+			System.out.println("Stack is empty: " + stack.empty());
+			System.out.println("Queue is empty: " + queue.empty());
 			return false;
 		}
 		return true;
